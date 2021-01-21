@@ -40,7 +40,9 @@
         .search-field{
             border-radius: 10px 0 0 10px;
         }
-
+        .navbar-brand{
+            font-size: 12px;
+        }
 
     </style>
 
@@ -55,7 +57,7 @@
       </button>
 
       <a class="navbar-brand" href="{{ url('/home') }}">
-          <img width="30px" height="30px" src="{{ asset('images/ministryofhealth.png') }}"> C-19 CMRT
+          <img width="30px" height="30px" src="{{ asset('images/ministryofhealth.png') }}"> COVID-19 CASE MANAGEENT AND REPORTING TOOL
       </a>
 
           
@@ -85,16 +87,8 @@
             <a class="nav-link " href="/donation" tabindex="-1">DONATIONS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/graph" tabindex="-1">Graph</a>
+            <a class="nav-link " href="/graph" tabindex="-1">GRAPH</a>
           </li>
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Graphs</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#"></a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li> -->
         </ul></center>
       </div>
     </nav>

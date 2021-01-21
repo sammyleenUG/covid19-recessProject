@@ -23,30 +23,20 @@
         .btn{
            border-radius: 0 0 0 0; 
         }
+        .navbar-brand{
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                   <img width="30px" height="30px" src="{{ asset('images/ministryofhealth.png') }}"> C-19 CMRT
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <nav class="navbar navbar-light bg-light shadow-sm">
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+      <a class="navbar-brand" href="{{ url('/home') }}">
+          <img width="30px" height="30px" src="{{ asset('images/ministryofhealth.png') }}"> COVID-19 CASE MANAGEMENT AND REPORTING TOOL
+      </a>
+              
+    </nav>
 
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    
-                </div>
-            </div>
-        </nav>
 
         <main class="py-4">
             @yield('content')

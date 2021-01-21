@@ -12,59 +12,67 @@
 
 
     <div class="col-md-12">
-           <div class="alert alert-success">
+           
 
-            
-                <h4 class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-                 </svg> Notifications:
-                 </h4>
+      <?php
 
 
-                <p class="text-center">
+            // An alert of salaries
 
-                    <?php
-
-
-                          // An alert of salaries
-
-                        if(date('j') == 28 || date('j') == 29 || date('j') == 30 || date('j') == 31){
-          
-                               // Donations made today
-
-                              $amount1 = 50000000;
-                              foreach($donations as $donation){
-                                  if(substr($donation->created_at,0,7) == date('Y-m')){
-                                      $amount1 = $donation->amount + $amount1;
-                                  }
-                              }
-                              
-                              if($amount1 < 100000000){
-                                  echo 'The treasury recieved less than 100 million this month hence no salary has been issued as per policy!';
-                              }else{
-                                  echo 'Salary for this month has been issued <a href="/staff" type="button" class="btn btn-success">see details &rarr;</a>';
-                              }
+          if(date('j') == 28 || date('j') == 29 || date('j') == 30 || date('j') == 31){
 
 
-                          }
+                echo '<div class="alert alert-success">
 
-                    ?>
-                  </p>
+
+                     <h4 class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                     </svg>
+                     </h4>
+
+
+                      <p class="text-center">';
+                    
+
+
+
+                // Donations in current month.
+
+                $amount1 = 50000000;
+                foreach($donations as $donation){
+                    if(substr($donation->created_at,0,7) == date('Y-m')){
+                        $amount1 = $donation->amount + $amount1;
+                    }
+                }
+                
+                if($amount1 < 100000000){
+                    echo 'The treasury recieved less than 100 million this month hence no salary has been issued as per policy!';
+                }else{
+                    echo 'Salary for this month has been issued <a href="/staff" type="button" class="btn btn-success">see details &rarr;</a>';
+                }
+
+                echo '</p>
+                </div>';
+            }
+
+      ?>
+    
+    
+
+
+           <!-- An alert that confirms a promotion -->
+
+        @if(session('promoted'))
+                <div class="alert alert-success">
                   <p class="text-center">
-
-
-                         <!-- An alert that confirms a promotion -->
-
-                      @if(session('promoted')){
-                        
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
-                                  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
-                                </svg>{{ session('promoted') }}
-                      }
-                      @endif
-                   </p>
-        </div>
-    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
+                      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
+                    </svg> {{ session('promoted') }}
+                  </p>
+               </div>
+              
+        @endif
+    </div>          
   </div>
   
 
