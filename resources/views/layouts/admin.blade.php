@@ -9,8 +9,14 @@
 
     <title>{{ config('app.name', 'COVID-19 CASE MANAGEMENT & REPORTING TOOL UGANDA') }}</title>
 
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -43,7 +49,10 @@
         .navbar-brand{
             font-size: 12px;
         }
-
+        .promotions{
+            max-height: 200px;
+            overflow-y: scroll;
+        }
     </style>
 
     
@@ -57,7 +66,7 @@
       </button>
 
       <a class="navbar-brand" href="{{ url('/home') }}">
-          <img width="30px" height="30px" src="{{ asset('images/ministryofhealth.png') }}"> COVID-19 CASE MANAGEENT AND REPORTING TOOL
+          <img width="30px" height="30px" src="{{ asset('images/ministryofhealth.png') }}"> COVID-19 CASE MANAGEMENT AND REPORTING TOOL
       </a>
 
           
@@ -86,14 +95,9 @@
           <li class="nav-item">
             <a class="nav-link " href="/donation" tabindex="-1">DONATIONS</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="/graph" tabindex="-1">GRAPH</a>
-          </li>
         </ul></center>
       </div>
     </nav>
-
-    
     <main class="py-4">
         @yield('content')
     </main>

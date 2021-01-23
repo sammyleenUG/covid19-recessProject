@@ -75,7 +75,7 @@
                                    <?php
                                         foreach($hospitals as $hospital){
                                             if($staff->hos_id == $hospital->id){
-                                                echo $hospital->name;
+                                                echo substr($hospital->name,0,30);
                                             }
                                         }
 
@@ -100,7 +100,66 @@
                                   ?>
 
                                </td>
-                               <td>Unpaid Yet</td>
+                               <td>
+
+                                   <!--  Salaries -->
+                                  <?php
+
+
+                                  if(date('j') == 28 || date('j') == 29 || date('j') == 30){
+
+                                      $amount1 = 50000000;
+                                      foreach($donations as $donation){
+                                          if(substr($donation->created_at,0,7) == date('Y-m')){
+                                              $amount1 = $donation->amount + $amount1;
+                                          }
+                                      }
+
+                                      if($amount1 > 100000000){
+
+                                          $dir = 5000000;
+
+                                          $supre = 0.5 * $dir;
+                                          $admin = 0.25 * $supre;
+                                          $h_o = 1.6 * $admin;
+                                          $s_h_o = $h_o + (0.06 * $h_o);
+                                          $head_h_o = $h_o + (0.035 * $h_o);
+
+                                          $all_deductions = $amount1 - ($supre + $admin + $h_o + $s_h_o + $head_h_o + $dir);
+
+                                          if($staff->position == 'Director'){
+                                              $dir = $dir + (0.05 * $all_deductions);
+                                              echo $dir;
+                                          }
+                                          if($staff->position == 'Administrator'){
+                                              $admin = $admin + (0.25 * (0.025 * $all_deductions));
+                                              echo $admin;
+                                          }
+                                          if($staff->position == 'Supreintendant'){
+                                              $supre = $supre + (0.025 * $all_deductions);
+                                              echo $supre;
+                                          }
+                                          if($staff->position == 'Health Officer'){
+                                              echo $h_o;
+                                          }
+                                          if($staff->position == 'Senior Health Officer'){
+                                              echo $s_h_o;
+                                          }
+                                          if($staff->position == 'Head Health Officer'){
+                                              echo $head_h_o;
+                                          }
+
+
+                                      }else{
+                                          echo 'The treasury was unable to release funds!';
+                                      }
+                                    }else{
+                                        echo 'Not paid yet';
+                                    }
+
+
+                                  ?>
+                               </td>
                                <td>
 
                                     <a href="/delete_staff/{{ $staff->id }}" type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

@@ -19,11 +19,9 @@
 
                     {{ __('Want to login as administrator?') }}
 
-                    <p> <a href="/logout" type="button" class="btn btn-warning">Click here</a></p>
+                    <p> <a href="/logout" type="button" class="btn btn-warning">Click here</a> <a href="/home" type="button" class="btn btn-primary">Go home &rarr;</a></p> 
 
-                    <hr>
-
-                    <p> <a href="/home" type="button" class="btn btn-primary">Go home &rarr;</a></p>
+                    
                 </div>
             </div>
         </div>

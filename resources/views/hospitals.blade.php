@@ -46,7 +46,7 @@
                 @foreach($hospitals as $hospital)
                 <tr>
                     <td>{{ $hospital->id }}</td>
-                    <td>{{ $hospital->name }}</td>
+                    <td>{{ substr($hospital->name,0,30) }}</td>
                     <td>{{ $hospital->category }}</td>
                     <td>
                     	

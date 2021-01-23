@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="album py-5 bg-light">
+<div class="album py-0 bg-light">
 <div class="container">
 
   <div class="row">
@@ -45,7 +45,7 @@
                     }
                 }
                 
-                if($amount1 < 100000000){
+                if($amount1 <= 100000000){
                     echo 'The treasury recieved less than 100 million this month hence no salary has been issued as per policy!';
                 }else{
                     echo 'Salary for this month has been issued <a href="/staff" type="button" class="btn btn-success">see details &rarr;</a>';
@@ -76,6 +76,7 @@
   </div>
   
 
+    <!-- Dashboard -->
 
 
 <div class="col-md-12">
@@ -155,12 +156,15 @@
                 <!--  calculating total amount collected -->
                 <?php 
 
-                    $amount3 = 50000000;
+                    $amount2 = 50000000;
                     foreach($donations as $donation){
-                        $amount3 = $donation->amount + $amount3;
+                        if(substr($donation->created_at,0,7) == date('Y-m')){
+                            $amount2 = $donation->amount + $amount2;
+                        }
                     }
-
-                    echo  $amount3.' Ugx!';
+                    
+                    echo  $amount2.' Ugx!';
+                
 
                 ?>
                         
@@ -172,148 +176,196 @@
 
                       <?php 
 
-                          $amount2 = 50000000;
+                          $amount3 = 50000000;
                           foreach($donations as $donation){
-                              if(substr($donation->created_at,0,7) == date('Y-m')){
-                                  $amount2 = $donation->amount + $amount2;
-                              }
+                              $amount3 = $donation->amount + $amount3;
                           }
+
+                          echo  $amount3.' Ugx in total!';
                           
-                          echo  $amount2.' Ugx in total!';
 
                       ?>
             </small></p>
           </div>
         </div>
 
-      </div>
+      </div>   
+
+    <div class="card-group">
+      <div class="card">
+        <div class="card-header" style="background: white;">
+            <h5 class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-line" viewBox="0 0 16 16">
+            <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z"/>
+          </svg> Approx
+             
+                    <?php 
 
 
-      <div class="card mb-4 shadow-md">
-         <div class="card-header">
-                <h5 class="card-text text-center">Approx
-         
-                <?php 
+                        // Donations made this month
 
-
-                    // Donations made this month
-
-                    $amount = 50000000;
-                    foreach($donations as $donation){
-                        if(substr($donation->created_at,0,7) == date('Y-m')){
-                            $amount = $donation->amount + $amount;
-                        }
-                    }
-                    if(strlen($amount) > 2 && strlen($amount) <= 3){
-                        echo substr($amount,0,-2).' hundred shillings!';
-                    }
-                    else if(strlen($amount) > 3 && strlen($amount) <= 6){
-                        echo substr($amount,0,-3).' thousand shillings!'; 
-                    }else if(strlen($amount) > 6 && strlen($amount) <= 12){
-                        echo substr($amount,0,-6).' million shillings!'; 
-                    }else if(strlen($amount) > 12 && strlen($amount) <= 18){
-                        echo substr($amount,0,-12).' billion shillings!';
-                    }else if(strlen($amount) > 18){
-                        echo substr($amount,0,-18).' trillion shillings!';
-                    }else{
-                        echo  ' '.$amount. ' ';
-                    }
-
-                ?>
-
-                collected this month.
-
-            </h5>
-          </div>
-        <div class="card-body">
-          <h6 class="card-text">Health Officers awaiting promotion and Hospital Assignment:
-                <ul>
-
-                <!-- Getting eligible staff  -->
-
-                <?php 
-
-                    
-                    $names = array();
-
-                    $names2 = array();
-
-                    foreach ($staffs as $staff) {
-                    
-                        $numb = 0;
-
-                        foreach($patients as $patient){
-                            if($staff->id == $patient->staff_id){
-                                $numb = $numb + 1;
+                        $amount = 50000000;
+                        foreach($donations as $donation){
+                            if(substr($donation->created_at,0,7) == date('Y-m')){
+                                $amount = $donation->amount + $amount;
                             }
- 
+                        }
+                        if(strlen($amount) > 2 && strlen($amount) <= 3){
+                            echo substr($amount,0,-2).' hundred shillings!';
+                        }
+                        else if(strlen($amount) > 3 && strlen($amount) <= 6){
+                            echo substr($amount,0,-3).' thousand shillings!'; 
+                        }else if(strlen($amount) > 6 && strlen($amount) <= 12){
+                            echo substr($amount,0,-6).' million shillings!'; 
+                        }else if(strlen($amount) > 12 && strlen($amount) <= 18){
+                            echo substr($amount,0,-12).' billion shillings!';
+                        }else if(strlen($amount) > 18){
+                            echo substr($amount,0,-18).' trillion shillings!';
+                        }else{
+                            echo  ' '.$amount. ' ';
                         }
 
-                        // checking if the health officer has reached 
-                            // required number of patients
+                    ?>
 
-                        if($numb == 100 && $staff->position == 'Health Officer'){
+                    collected this month.
+             </h5>
+        </div>
+        <div class="card-body">
+              <p class="card-text"><canvas id="userChart" class="shadow-sm"></canvas></p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Pending Promotions:</h5>
+          <p class="card-text">
+              <ul class="promotions">
 
-                            $x = $staff->staff_firstname.' '.$staff->staff_lastname;
+                    <!-- Getting eligible staff  -->
 
-                            if(!in_array($x, $names))
-                               $names[] = $x;
+                    <?php 
 
-                        }else if($numb == 900 && $staff->position == 'Senior Head Officer'){
+                        
+                        $names = array();
 
-                            $y = $staff->staff_firstname.' '.$staff->staff_lastname;
+                        $names2 = array();
 
-                            if(!in_array($y, $names2))
-                               $names2[] = $y;
+                        foreach ($staffs as $staff) {
+                        
+                            $numb = 0;
+
+                            foreach($patients as $patient){
+                                if($staff->id == $patient->staff_id){
+                                    $numb = $numb + 1;
+                                }
+     
+                            }
+
+                            // checking if the health officer has reached 
+                                // required number of patients
+
+                            if($numb > 100 && $staff->position == 'Health Officer'){
+
+                                $x = $staff->staff_firstname.' '.$staff->staff_lastname;
+
+                                if(!in_array($x, $names))
+                                   $names[] = $x;
+
+                            }else if($numb > 100 && $staff->position == 'Senior Head Officer'){
+
+                                $y = $staff->staff_firstname.' '.$staff->staff_lastname;
+
+                                if(!in_array($y, $names2))
+                                   $names2[] = $y;
+
+                            }
 
                         }
 
-                    }
+                        // checking if there are any health officers/Senio H/O
+                        // who reached a certain number of patients
 
-                    // checking if there are any health officers
-                    // who reached a certain number of patients
-
-                    if(count($names) > 0){
+                        if(count($names) > 0){
                             foreach($names as $name){
                                  echo '<li>'.$name.'</li>';
+                            }
                         }
-                    }else{
-                        echo '<li>None</li>';
-                    }
-                
-                    
-                                         
-
-                ?>
-
-                </ul>
-                
-          </h6>
-          <h6 class="card-text">Senior Health Officers Promoted, Awarded and on waiting list:
-                <ul>
-                    
-                    <?php
                         if(count($names2) > 0){
                             foreach($names2 as $name){
-                                 echo '<li>'.$name.'</li>';
+                             echo '<li>'.$name.'</li>';
                             }
-                        }else{
-                            echo '<li>None</li>';
                         }
+                        if(count($names2) == 0 && count($names) == 0){
+                            echo '<li>None</li>';
+                        }                  
+
                     ?>
-                    </li>
-                </ul> 
-          </h6>
 
-          <!-- this is the button to promote the eligible staff -->
-
-          <a href="/confirm_promotions" type="button" class="btn btn-success" style="width:100%;">Confirm <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-square" viewBox="0 0 16 16">
+                  </ul>
+                </p>  
+        </div>
+        <div class="card-footer" style="background: white;">
+            <a href="/confirm_promotions" type="button" class="btn btn-success" style="width:100%;">Confirm <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-square" viewBox="0 0 16 16">
             <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"/>
             <path d="M8.354 10.354l7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
-          </svg></a>
+            </svg></a>
+        </div>
+      </div>
+    </div>
+      
 
-  </div>
-</div>
+      <!-- CHART-->
+
+<script>
+    var ctx = document.getElementById('userChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
+// The data for our dataset
+
+        data: {
+            labels:  {!!json_encode($chart->labels)!!} ,
+            datasets: [
+                {
+                    label: 'Donation Per Month',
+                    backgroundColor: {!! json_encode($chart->colours)!!} ,
+                    data:  {!! json_encode($chart->dataset)!!} ,
+                },
+            ]
+        },
+
+// Configuration options go here
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false,
+                        callback: function(value) {if (value % 1 === 0) {return value;}}
+                    },
+                    scaleLabel: {
+                        display: false
+                    }
+                }]
+            },
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontColor: '#122C4B',
+                    fontFamily: "'Muli', sans-serif",
+                    padding: 25,
+                    boxWidth: 25,
+                    fontSize: 14,
+                }
+            },
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 10,
+                    top: 0,
+                    bottom: 10
+                }
+            }
+        }
+    });
+</script>
 
 
 
