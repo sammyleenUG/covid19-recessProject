@@ -22,7 +22,7 @@ v. Graph showing donations by month, well-wisher as selected by the administrato
 
 <br>
 
-vi. Total number of patients
+vi. Total number of patients, staff, treasury and hospitals
 
 
 <h4>Administrator Specific Actions</h4>
