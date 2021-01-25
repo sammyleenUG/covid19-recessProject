@@ -8,8 +8,7 @@ officer, month etc.
 <br>
 
 
-ii. The graphical displays of hierarchy. At the top of each is head by general hospital,
-regional referral hospital or national referral hospital.
+ii. The graphical displays.
 
 <br>
 
