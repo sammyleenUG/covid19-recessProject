@@ -53,6 +53,11 @@
             max-height: 200px;
             overflow-y: scroll;
         }
+        @media(max-width: 600px){
+          .respond{
+              display: none;
+          }
+        }
     </style>
 
     

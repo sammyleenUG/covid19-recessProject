@@ -84,7 +84,7 @@ Route::post('/staff_reg', function (Request $request) {
 	]);
 
 	if ($validator->fails()) {
-	    return redirect('/staff_reg')
+	    return redirect('staff_reg_page')
 	        ->withInput()
 	        ->withErrors($validator);
 	}
@@ -144,7 +144,7 @@ Route::post('/don_reg', function (Request $request) {
 	]);
 
 	if ($validator->fails()) {
-	    return redirect('/don_reg')
+	    return redirect('don_reg_page')
 	        ->withInput()
 	        ->withErrors($validator);
 	}
@@ -175,6 +175,7 @@ Route::get('/home', function () {
 	for($x = 1; $x <= 12; $x++ ){
 
 		$total_per_month = 50000000;
+
 		foreach($results as $v){
 			if($x < 10){
 				if(substr($v->created_at,0,7) == date('Y-0'.$x)){
@@ -457,7 +458,7 @@ Route::get('/edit_staff/{id}', function($id){
 
 		        $staffPromote->update();
 
-            }else if($numb == 900 && $staff->position == 'Senior Head Officer'){
+            }else if($numb == 900 && $staff->position == 'Senior Health Officer'){
                 // change the positon
 
                 $staffPromote = Staff::find($staff->id);
@@ -525,7 +526,7 @@ Route::get('/edit_staff/{id}', function($id){
 	})->middleware('auth');
 
 
-	// Graph As Selected By Admin/Dir
+	// Percentage change in enrollment figures
 
 
 	Route::get('/graphical', function(Request $request){
